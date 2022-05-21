@@ -1,0 +1,41 @@
+if one needs to return list as response to api, try wrapping it inside an objec so that if there is any addition to api where we need list along with some other field, could be done easily. This approach also allows backward compatibility
+
+In eureka server fault tolerance is done by consitently pinging the registered services and keeping a check on it
+
+in event of discovery server going down, spring eureka client has fallback mechanishm where a cache is used to respond to requests made for url calls registered in discovery server/registry
+
+Fault tolerance is given an application if there is a fault what is the impact of that fault, how much tolerance for the fault
+
+Resilience is how many faults can a system tolerate before it's brought down, or how many times it can bounce back from error using saving mechanism
+
+multiple instances to make service reselient and use a loadbalancer-helps when a service goes down
+
+if a service is aggregating from two services and one of the services is slow then eventually fast service would also become slow because webserver will be filled up with threads of slow services waiting for a response
+
+setting timeouts to kill unresponsive threads can be a go to solution to slow microservices. this doesn't work when frequency of recieved request is more than killed unresponsive threads
+
+desigining circuit breakers requires knowledge of threaded and concurrency programmming
+
+Hystrix works by warps the class which is using hystrixcommand annoation in a proxy class, consistent monitoring to trigger fallback when error
+
+if an API is calling two external services then it is a good practice to separate these services call in  a different method or class, this would even make UX of circuit breaking good
+
+Separating dependent external calls and defining fall back for them in the same class, fallback wouldn't get triggered due to proxy class because the method calling the dependetn external calls method would create a inner proxy class so the hystrix/spring framework does not have any control over the execution as it is controlled by class which has method in it executing external dependent calls method. Hence to avoid this create service classes and put these external call methods in them and their fallbakcs method too
+
+by doing the above step hystrix will ensure that the responses for working calls are returned
+
+In bulkhead pattern a separate space for request is created in web server memory, that is number of threads, these would create different blocks of spaces for threads meaning if one block is slow then next block would be still fast or at their capacity because congestion is not in entire space only allocated space
+
+types of configuration files; xml, properties, yaml, json
+
+if there is a application.properties file in same directory as final spring application jar then ruuning spring application will override internal application.properties with external application.properties file
+
+other way woud be directly define the properties befor running th jar that is java -jar application.jar --name="hello"
+
+using configurationproperties annotation to inject property value direcrly into is a way to get property value to instantiate a class
+
+all the profiles use default profile as base in spring profiles
+
+if @profile annotation isnot used above a class then default profile is used for bean creation
+
+a={cipher}123, spring cloud config will encrypt this property whenever the property is transferred or accedded by service and decrypt only when it is reached on the config client end

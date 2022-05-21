@@ -1,0 +1,42 @@
+Componenets of monolitic architecture are tightly coupled
+To scale a monoltihic app, multiple instances can be run behind a load balancer
+Monolithic app-easily developed, one point execution
+Scaling monolithic comes with a challange, where many instances are using one DB and this renders caching inefficient
+Monolithic is Inflexible in terms of incorporationg new tech
+
+In microservices, every service has its own data model, services are small, independent and loosely coupled
+
+Management being one of the components of microservices, it's job is to manage services, balance them, check failures
+
+features of microservices, small focused-enables changes and deployment easily, Bounded context- each service doesn't need to understand implementation of other services
+
+Microservices have granular scaling, i.e each service can be scaled independently
+
+Challenges to microservices architecture are configuration management, debugging(identifying errors), consistency(governance regarding tools used to create, configure, monitor microservices), perceptibility(gets uneasy to monitor and identify problems for services), automating the componenets(uneasy build and deployment)
+
+SOA-Service oriented architecture-like microservices but many services constitute one service or many tasks in one service-coarse grained approach
+SOA is centrallized with one governing body while microservices are decentrallized
+
+In SOA vs Microservices architecture and coordination, functional services in microservices do the job of SOA bussiness logic, enterprise(implements the functionality defined by business logic) and application service(actual core functionality of business logicc) services and infrastructure service does the job of SOA infrastructure service(non technical services, auditing, scaling, security etc.)
+
+SOA uses middleware/messaging for communication and Microservices uses API layer
+
+Auto-provisioning, ability to deploy the information by itself, generating information for client request without any intervention
+
+In asynchronous messgaing design patter, request from client are stored in a queue and processed accordingly, moreover path is not defined and it's not necessary for response to be recieved in sequential manner
+
+In shared database design pattern, there are issues with redundancy, different services have different storeage reqirements and scalability issues, normalization of data. to solve this go for one db per service or shared database per service(limit to 2-3 services)
+
+Event sourcing design pattern helps us to revert to a state of service/application before a particular event/change in application/service
+
+Branch design pattern is extension of aggregator and chain design pattern, and the responses/request don't necessarily need to be in seqnetial manner
+
+In cqrs design pattern materialized views are updated through a sequence of events using event sourcing design pattern
+
+In circuit breaker design pattern, request to a service is blocked for a certain period of time whenever request to service fails beyond a threshold. after breaking period is over the access to services are resumed only if the previously down service passes tests
+
+Strangler/Vine design pattern used in decomposition design pattern used to decompose big monolithic applications, this is analogus to vine tree by which its wrapped around, a call goes back and forth each URi call and service is broken down into different domain, these domains are then hosted by separate services, so basically two separate applications will live side by side in same uri space and one domain will be taken into account at one instance of time. eventually monolithic application starts to wrap around until it is completely decomposed 
+
+Session is basically a state when user is connected to a service. Storing details of theuser in a given server for service can help us track user odd activities, issue with this type of session management is that it fails when load balancing is in picture and works for small number of services. Storing complete session data in single instance, becomes uneasy to scale when instance has to store multiple data/objects/responses. Obtain user data from shared session storage which has a security layer 
+
+In OAuth, it is ensured that callback url after authorization is not stolen
