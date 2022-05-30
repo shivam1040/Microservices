@@ -1,4 +1,4 @@
-Topics and technologies covered in this hand on
+Topics and technologies covered in this hands on
 
 Service creation
 Rest tempelate
